@@ -1,12 +1,11 @@
 const connect = require('../db_connection');
-const {
-    hashpassword
-} = require('../commands/hashpassword.js');
 
-const addauthor = (name , email ,password,cb) =>{
-    const hasedpassword = hashpassword(password);
-    const querycommand = 'INSET INTO journalist (fullname,email,password) Values ($1, $2, $3)';
-    const values = [name, email, hashedPassword];
-    connect.query(text, values, callback);
+const addJournalist = (journalists,cb) =>{
+    const { fullname, email, password } =journalists;
+    const query ={
+       sql:  'INSERT INTO journalists (fullname,email,password) Values ($1, $2, $3)',
+       values:[fullname,email,password]
+    };
+   return connect.query(query,cb);
 }
-module.exports = addauthor;
+module.exports = addJournalist;

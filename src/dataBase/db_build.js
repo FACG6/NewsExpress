@@ -3,8 +3,10 @@ const fs=require('fs');
 const dbConnection =require('./db_connection');
 
 const sql = fs.readFileSync(path.join(__dirname, "db_build.sql")).toString();
-const runDbBuild = () => {
-  dbConnection.query(sql, () => console.log("Database was built succesfully"));
+const runDbBuild = cb=> {
+  dbConnection.query(sql, (error,res) => {
+  if(error) cb(error)
+  cb(null,'success')});
 };
-runDbBuild();
+
 module.exports = runDbBuild;
