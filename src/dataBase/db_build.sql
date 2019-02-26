@@ -24,3 +24,4 @@ BEGIN;
         ('The utter absurdity of Trumps July Fourth bash','HOLD THE DATE! We will be having one of the biggest gatherings in the history of Washington, D.C., on July 4th. It will be called a Salute To America and will be held at the Lincoln Memorial. Major fireworks display, entertainment and an address by your favorite President, me!', 'politics',2);
 
     COMMIT;
+    
