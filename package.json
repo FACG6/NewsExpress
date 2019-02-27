@@ -10,7 +10,6 @@
     "test": "NODE_ENV=test tape ./test/test.js |tap-spec",
     "start": "node ./src/index.js"
   },
-  "author": "",
   "license": "ISC",
   "devDependencies": {
     "eslint": "^5.14.1",

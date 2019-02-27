@@ -1,7 +1,5 @@
 exports.get = (req, res) => {
-  if () {
-      
-  } else {
-      
-  }
-}
+  console.log("11111");
+  
+  res.render('home');
+};
