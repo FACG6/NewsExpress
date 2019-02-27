@@ -16,8 +16,8 @@ BEGIN;
         jour_id INTEGER REFERENCES journalists(id)
     );
         INSERT INTO journalists (fullname ,email,Password)VALUES
-        ('jamalat','jamalat@gmial.com','123'),
-        ('fatama','fatma@gmail,.com','123');
+        ('jamalat','jamalat@gmial.com','$2b$10$ZL9N2EFWYuGO3zbljlCWK.FnVKD3LC/HeTZujWsEgD0FRMJBDhEIG'),
+        ('fatama','fatma@gmail,.com','$2b$10$ILf1VzEalRrV3SJXjmJ1iuxQrTQwAJZYjPX.bNrthUm2NMb4i5PIu');
 
         INSERT INTO  news (title ,descriptions,field,jour_id) VALUES 
         ('The utter absurdity of Trumps July Fourth bash','HOLD THE DATE! We will be having one of the biggest gatherings in the history of Washington, D.C., on July 4th. It will be called a Salute To America and will be held at the Lincoln Memorial. Major fireworks display, entertainment and an address by your favorite President, me!', 'politics',1),

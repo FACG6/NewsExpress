@@ -1,51 +1,40 @@
+const { sign } = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const checkUser = require('./../dataBase/quires/checkData');
+const checkemail = require('./../dataBase/quires/checkData');
 require('dotenv').config();
-const {
-  sign,
-} = require('jsonwebtoken');
 
-const compare = (password, hashedPassword) => new Promise((resolve, reject) => {
-  bcrypt.compare(password, hashedPassword, (err, success) => {
+exports.checkuser = (req, res) => {
+  const { email, password } = req.body;
+  checkemail(email, (err, result) => {
     if (err) {
-      reject(err);
+      console.log(err);
     } else {
-      resolve(success);
-    }
-  });
-});
+      if (result.length>0) {
+        bcrypt.compare(password, result[0].password, (error, resAuth) => {
+          if (error) throw new Error('error in comparing password');
+          if (resAuth) {
+            const payload = {
+              id: result[0].id,
+              fullname: result[0].fullname,
+            };
 
-exports.checkUser = (req, res) => {
-  const { emailValue, passwordValue } = req.body;
-  checkUser(emailValue).then((rows) => {
-    if (rows.rows[0]) {
-      compare(passwordValue, rows.rows[0].password).then((result) => {
-        if (result) {
-          const payload = {
-            id: rows.rows[0].id,
-            name: rows.rows[0].name,
-          };
-          const jwt = sign(payload, process.env.SECRET);
-          res.cookie('jwt', jwt, {
-            httpOnly: true,
-          }, {
-            maxAge: 1000,
-          });
-          res.send(JSON.stringify({
-            successMessage: true,
-          }));
-        } else {
-          res.send(JSON.stringify({
-            successMessage: 'Password is invalid',
-          }));
-        }
-      });
-    } else {
-      res.send(JSON.stringify({
-        successMessage: 'Email is invalid',
-      }));
+            const jwt = sign(payload, process.env.SECRET);
+            res.cookie('jwt',jwt,
+              {
+                maxAge: 1000 * 60 * 60 * 24 * 1
+              },
+              {
+                httpOnly: true
+              }
+            );
+            res.redirect('/');
+          } else {
+            console.log('password error');
+          }
+        });
+      } else {
+        res.redirect('/signIn');
+      }
     }
-  }).catch((err) => {
-    console.log(err);
   });
 };

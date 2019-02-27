@@ -1,4 +1,5 @@
-exports.get = (req, res) => {
+exports.sign = (req, res) => {
+
   if (req.headers.cookie) {
     res.redirect('/');
   } else {
