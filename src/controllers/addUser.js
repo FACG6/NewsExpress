@@ -8,16 +8,11 @@ const hashPassWord = password => new Promise((resolve, reject) => {
   });
 });
 
-exports.add = (req, res) => {
-  hashPassWord(req.body.password)
-    .then(hashedPassword => req.body.password = hashedPassword)
-    .then(() => {
-      addJournalist(req.body);
-    }).then(() => {
-      res.send({
-        successMessage: 'Journalist is added',
-      }).catch((err) => {
-        console.log(err);
-      });
-    });
+exports.add = (object, cb) => {
+  hashPassWord(object.password)
+    .then((hashedPassword) => {
+      object.password = hashedPassword;
+      return object;
+    })
+    .then(addJournalist(object, cb));
 };

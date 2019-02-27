@@ -1,6 +1,6 @@
 const connect = require('../db_connection');
 
-exports.addJournalist = (journalists, cb) => {
+module.exports = (journalists, cb) => {
   const { fullname, email, password } = journalists;
   const sql = 'INSERT INTO journalists (fullname,email,password) Values ($1, $2, $3)';
   const values = [fullname, email, password];
