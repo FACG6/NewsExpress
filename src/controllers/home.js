@@ -1,5 +1,11 @@
+const showData = require('../dataBase/quires/getData');
+
 exports.get = (req, res) => {
-  console.log("11111");
-  
-  res.render('home');
+  showData((error, results) => {
+    if (error) {
+      res.render('error');
+    } else {
+      res.render('home', { results: results.rows });
+    }
+  });
 };

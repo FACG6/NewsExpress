@@ -5,7 +5,7 @@ const showData = (cb) =>{
     }
      connect.query(query.sql,(error,res)=>{
          if(error)cb(error)
-         cb(null,res.rows)
+         cb(null,res)
      });
 }
 
