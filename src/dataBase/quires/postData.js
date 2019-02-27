@@ -21,6 +21,6 @@ const addnews = (title,descriptions, field, jour_id,cb) => {
      if (error)cb(error)
      cb(null,'add journalist is done')
   });
-}
+};
 
-module.exports ={addnews, addJournalist};
+module.exports = { addnews, addJournalist };

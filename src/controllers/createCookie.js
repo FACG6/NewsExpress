@@ -1,5 +1,5 @@
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
 
-exports.get = (res, result) => {
+// exports.get = (res, result) => {
 
-};
+// };
