@@ -24,7 +24,7 @@ tape("test addnews ", t => {
     runDbBuild((err, res) => {
       if (err) t.error(err, "Error");
       const expected = "add journalist is done";
-      addnewst(
+      addnews(
         'killing','lsakf;a','aslsdp',1,
         (error, result) => {
           if (error) {
