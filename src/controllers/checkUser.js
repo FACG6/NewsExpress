@@ -29,7 +29,7 @@ exports.checkuser = (req, res) => {
             );
             res.redirect('/');
           } else {
-            console.log('password error');
+            res.redirect('/signIn');
           }
         });
       } else {
