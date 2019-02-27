@@ -13,7 +13,7 @@ router.get('/login', signIn.get);
 router.post('./checkuser', checkUser.checkUser);
 router.get('/signUp', signUp.get);
 router.post('/signUp', signUp.post);
-router.use(auth.get);
+router.use(auth.auth);
 router.post('/addUser', addJournalist.add);
 
 module.exports = router;
