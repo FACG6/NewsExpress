@@ -3,8 +3,10 @@ const showData = (cb) =>{
     const query={
         sql:'SELECT journalists.fullname ,title , descriptions , field from news JOIN journalists ON news.jour_id = journalists.id '
     }
-    console.log(query)
-   return  connect.query(query,cb);
+     connect.query(query.sql,(error,res)=>{
+         if(error)cb(error)
+         cb(null,res.rows)
+     });
 }
 
 module.exports = showData;
