@@ -5,7 +5,7 @@ BEGIN;
         id SERIAL PRIMARY KEY,
         fullname TEXT,
         email VARCHAR(50),
-        password VARCHAR
+       Password  VARCHAR
     );
     CREATE TABLE news
     (
@@ -15,7 +15,7 @@ BEGIN;
         field text,
         jour_id INTEGER REFERENCES journalists(id)
     );
-        INSERT INTO journalists (fullname ,email,password)VALUES
+        INSERT INTO journalists (fullname ,email,Password)VALUES
         ('jamalat','jamalat@gmial.com','123'),
         ('fatama','fatma@gmail,.com','123');
 
