@@ -1,12 +1,21 @@
-const showData = require('../dataBase/quires/getData');
-const { }=require('jsonwebtoken');
+const showData = require("../dataBase/quires/getData");
 
 exports.get = (req, res) => {
-  showData((error, results) => {
-    if (error) {
-      res.render('error');
-    } else {
-      res.render('home', { results: results.rows });
-    }
-  });
+  if (req.headers.cookie) {
+    showData((error, results) => {
+      if (error) {
+        res.render("error");
+      } else {
+        res.render("homeAuth", { results: results.rows });
+      }
+    });  
+   } else {
+    showData((error, results) => {
+      if (error) {
+        res.render("error");
+      } else {
+        res.render("home", { results: results.rows });
+      }
+    });
+  }
 };

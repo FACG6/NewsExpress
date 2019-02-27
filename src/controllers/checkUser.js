@@ -1,49 +1,43 @@
+const { sign } = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const checkUser = require('./../dataBase/quires/checkData');
+const checkemail = require('./../dataBase/quires/checkData');
 require('dotenv').config();
-const {
-  sign,
-} = require('jsonwebtoken');
-
-const compare = (password, hashedPassword) => new Promise((resolve, reject) => {
-  bcrypt.compare(password, hashedPassword, (err, success) => {
-    if (err) {
-      reject(err);
-    } else {
-      resolve(success);
-    }
+const hashFunction = (password, cb) => {
+  bcrypt.genSalt(10, (err, salt) => {
+    if (err) cb(err);
+    bcrypt.hash(password, salt, cb);
   });
+};
+hashFunction('123', (err, res) => {
+  console.log(res);
 });
-
-exports.checkUser = (req, res) => {
-  const { emailValue, passwordValue } = req.body;
-  checkUser(emailValue).then((rows) => {
-    if (rows.rows[0]) {
-      compare(passwordValue, rows.rows[0].password).then((result) => {
-        if (result) {
+exports.checkuser = (req, res) => {
+  const { email, password } = req.body;
+  checkemail(email, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else if (result[0].email) {
+      bcrypt.compare(password, result[0].password, (error, resAuth) => {
+        if (error) throw new Error('error in comparing password');
+        if (resAuth) {
           const payload = {
-            id: rows.rows[0].id,
-            name: rows.rows[0].name,
+            id: result[0].id,
+            fullname: result[0].fullname
           };
+
           const jwt = sign(payload, process.env.SECRET);
-          res.writeHead({
-            'Set-Cookie': [`jwt=${jwt};httpOnly;MaxAge=10000`],
+          res.cookie('jwt', jwt, {
+            maxAge: 1000 * 60 * 60 * 24 * 1,
+          }, {
+            httpOnly: true,
           });
-          res.send({
-            successMessage: true,
-          });
+          res.redirect('/');
         } else {
-          res.send(JSON.stringify({
-            successMessage: 'Password is invalid',
-          }));
+          console.log('password error');
         }
       });
     } else {
-      res.send(JSON.stringify({
-        successMessage: 'Email is invalid',
-      }));
+      console.log('enter valid emai');
     }
-  }).catch((err) => {
-    console.log(err);
   });
-};
+  
