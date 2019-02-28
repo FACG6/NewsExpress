@@ -6,9 +6,9 @@ const checkUser = require('./checkUser');
 const signIn = require('./signIn');
 const signOut = require('./signOut');
 const signUp = require('./signUp');
-const addJournalist = require('./addUser');
 const error = require('./error');
 const auth = require('./isCookie');
+const news = require('./addNews');
 
 router.get('/', home.get);
 router.get('/signIn', signIn.sign);
@@ -18,7 +18,7 @@ router.get('/signOut', signOut.signout);
 router.get('/signUp', signUp.get);
 router.post('/signUp', signUp.post);
 router.use(auth.auth);
-router.post('/addUser', addJournalist.add);
+router.post('/addnews', news.add);
 router.use(error.notfound);
 router.use(error.serverError);
 
