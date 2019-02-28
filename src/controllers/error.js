@@ -6,7 +6,7 @@ exports.notfound = (req, res) => {
   });
 };
 
-exports.serverError = (req, res) => {
+exports.serverError = (err, req, res, next) => {
   res.status(500).render('error', {
     layout: 'error',
     statusCode: 500,
