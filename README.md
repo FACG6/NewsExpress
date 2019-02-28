@@ -34,7 +34,7 @@ take it as a possible update for our website__
 ```
 DB_URL = postgres://[user-name]:[password]@localhost:5432/[database]
 ```
-#### team members
+#### Team members
 #### Jamalt
 #### Khader
 #### Fatma
