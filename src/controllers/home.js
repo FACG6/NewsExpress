@@ -1,20 +1,23 @@
-const showData = require("../dataBase/quires/getData");
+const { parse } = require('cookie');
+const showData = require('../dataBase/quires/getData');
 
 exports.get = (req, res) => {
-  if (req.headers.cookie) {
+  const { jwt } = parse(req.headers.cookie);
+
+  if (req.headers.cookie && req.headers.cookie.includes(jwt)) {
     showData((error, results) => {
       if (error) {
-        res.render("error");
+        res.render('error');
       } else {
-        res.render("homeAuth", { results: results.rows });
+        res.render('homeAuth', { results: results.rows });
       }
-    });  
-   } else {
+    });
+  } else {
     showData((error, results) => {
       if (error) {
-        res.render("error");
+        res.render('error');
       } else {
-        res.render("home", { results: results.rows });
+        res.render('home', { results: results.rows });
       }
     });
   }

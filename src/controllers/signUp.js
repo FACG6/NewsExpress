@@ -10,12 +10,11 @@ exports.post = (req, res) => {
     email: req.body.email,
     password: req.body.password,
   };
-
   add.add(newUser, (err, result) => {
     if (err) {
       res.send('<h1>Server Error</h1>');
     } else {
-      res.redirect('/login');
+      res.redirect('/signIn');
     }
   });
 };

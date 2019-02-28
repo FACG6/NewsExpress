@@ -1,18 +1,15 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const addJournalist = require('./../dataBase/quires/addJournalist');
 
-const hashPassWord = password => new Promise((resolve, reject) => {
-  bcrypt.hash(password, 10, (err, result) => {
-    if (err) reject(err);
-    else resolve(result);
+const hashFunction = (password, cb) => {
+  bcrypt.genSalt(10, (err, salt) => {
+    if (err) cb(err);
+    bcrypt.hash(password, salt, cb);
   });
-});
-
+};
 exports.add = (object, cb) => {
-  hashPassWord(object.password)
-    .then((hashedPassword) => {
-      object.password = hashedPassword;
-      return object;
-    })
-    .then(addJournalist(object, cb));
+  hashFunction(object.password, (err, res) => {
+    object.password = res;
+    addJournalist(object, cb);
+  });
 };
